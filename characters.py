@@ -34,7 +34,6 @@ class Coin(arcade.Sprite):
         super().__init__()
         self.texture = coin_texture
 
-
 class Wall(arcade.Sprite):
     def __init__(self):
         super().__init__()
