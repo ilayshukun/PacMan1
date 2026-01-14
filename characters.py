@@ -31,6 +31,7 @@ class Character(arcade.Sprite):
         self.height = height
 
 
+
 class Player(Character):
     def __init__(self, center_x, center_y):
         super().__init__(center_x, center_y, player_texture, speed=1)
