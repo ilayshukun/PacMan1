@@ -56,6 +56,7 @@ class Enemy(Character):
         if self.time_to_change_direction <= 0:
             self.pick_new_direction()
 
+
         self.center_x += self.change_x * self.speed
         self.center_y += self.change_y * self.speed
 
