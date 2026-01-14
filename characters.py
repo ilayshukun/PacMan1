@@ -1,6 +1,8 @@
 import arcade
 import random
 
+from arcade.examples.happy_face import width, height
+
 coin_texture = arcade.make_circle_texture(20, arcade.color.YELLOW)
 player_texture = arcade.make_circle_texture(50, arcade.color.YELLOW)
 enemy_texture = arcade.make_circle_texture(50, arcade.color.RED)
@@ -25,6 +27,8 @@ class Character(arcade.Sprite):
         self.speed = speed
         self.change_x = 0
         self.change_y = 0
+        self.width = width
+        self.height = height
 
 
 class Player(Character):
@@ -67,3 +71,5 @@ class Wall(arcade.Sprite):
         self.texture = wall_texture
         self.center_x = center_x
         self.center_y = center_y
+        self.width = width
+        self.height = height
