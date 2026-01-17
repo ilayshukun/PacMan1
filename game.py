@@ -5,6 +5,7 @@
 - PacmanGame: ניהול מצב המשחק, ציור, עדכון ותשובת מקלדת.
 """
 import arcade
+
 from constants import  WINDOW_WIDTH, WINDOW_HEIGHT, TILE_SIZE, LEVEL_MAP
 from characters import Pacman, Ghost, Coin, Wall
 
