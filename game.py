@@ -63,6 +63,12 @@ class PacmanGame(arcade.View):
                     ghost.center_x = x
                     ghost.center_y = y
                     self.ghost_list.append(ghost)
+        if self.player == None:
+            self.player = Pacman()
+            self.player.center_x = self.start_x
+            self.player.center_y = self.start_y
+            self.player_list.append(self.player)
+
 
     def on_draw(self):
         self.clear()
@@ -79,6 +85,49 @@ class PacmanGame(arcade.View):
         if self.game_over:
             arcade.draw_text("GAME OVER", WINDOW_WIDTH / 2 - 80,  WINDOW_HEIGHT / 2, arcade.color.RED,24)
 
+    def on_update(self, delta_time):
+
+        if self.game_over:
+            return
+        old_x = self.player.center_x
+        old_y = self.player.center_y
+
+        self.player.center_x += self.player.change_x
+        self.player.center_y += self.player.change_y
+
+        if arcade.check_for_collision_with_list(self.player, self.wall_list):
+            self.player.center_x = old_x
+            self.player.center_y = old_y
+
+        for ghost in self.ghost_list:
+            old_x = ghost.center_x
+            old_y = ghost.center_y
+
+            ghost.update()
+
+            if arcade.check_for_collision_with_list(ghost, self.wall_list):
+                ghost.center_x = old_x
+                ghost.center_y = old_y
+                ghost.change_x *= -1
+                ghost.change_y *= -1
+
+        coins_hit = arcade.check_for_collision_with_list(self.player, self.coin_list)
+        for coin in coins_hit:
+            coin.remove_from_sprite_lists()
+            self.player.score += 1
+        ghosts_hit = arcade.check_for_collision_with_list(self.player, self.ghost_list)
+        if ghosts_hit:
+            self.player.lives -= 1
+
+            self.player.center_x = self.start_x
+            self.player.center_y = self.start_y
+            self.player.change_x = 0
+            self.player.change_y = 0
+
+            if self.player.lives5 <= 0:
+                self.game_over = True
+
+
     def on_key_release(self,key,modifiers):
         if key == arcade.key.UP:
             self.player.center_y = 0
@@ -94,14 +143,14 @@ class PacmanGame(arcade.View):
 
     def on_key_press(self, key, modifers):
         if self.game_over == True:
-            if key == arcade.key.Space:
+            if key == arcade.key.SPACE:
                 setup()
-        if key == arcade.key.Up:
+        if key == arcade.key.UP:
             self.player.center_y = 1
-        elif key == arcade.key.Down:
+        elif key == arcade.key.DOWN:
             self.player.center_y = -1
-        elif key == arcade.key.Right:
+        elif key == arcade.key.RIGHT:
             self.player.center_x = 1
-        elif key == arcade.key.Left:
+        elif key == arcade.key.LEFT:
             self.player.center_x = -1
 

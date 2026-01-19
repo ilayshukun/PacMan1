@@ -6,6 +6,8 @@ class Pacman(arcade.Sprite):
         self.texture = arcade.make_soft_circle_texture(32, arcade.color.YELLOW)
         self.width = 32
         self.height = 32
+        self.lives = 3
+        self.score = 0
 
 class Ghost(arcade.Sprite):
     def __init__(self):
