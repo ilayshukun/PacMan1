@@ -4,6 +4,8 @@
 מכיל את המחלקה:
 - PacmanGame: ניהול מצב המשחק, ציור, עדכון ותשובת מקלדת.
 """
+from turtledemo.clock import setup
+
 import arcade
 
 from constants import  WINDOW_WIDTH, WINDOW_HEIGHT, TILE_SIZE, LEVEL_MAP
@@ -76,3 +78,21 @@ class PacmanGame(arcade.View):
 
         if self.game_over:
             arcade.draw_text("GAME OVER", WINDOW_WIDTH / 2 - 80,  WINDOW_HEIGHT / 2, arcade.color.RED,24)
+
+
+
+
+
+    def on_key_press(self, key, modifers):
+        if self.game_over == True:
+            if key == arcade.key.Space:
+                setup()
+        if key == arcade.key.Up:
+            self.player.center_y = 1
+        elif key == arcade.key.Down:
+            self.player.center_y = -1
+        elif key == arcade.key.Right:
+            self.player.center_x = 1
+        elif key == arcade.key.Left:
+            self.player.center_x = -1
+
