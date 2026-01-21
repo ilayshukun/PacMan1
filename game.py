@@ -7,14 +7,14 @@
 from turtledemo.clock import setup
 
 import arcade
+from typing_extensions import Final
 
 from constants import  WINDOW_WIDTH, WINDOW_HEIGHT, TILE_SIZE, LEVEL_MAP
-from characters import Pacman, Ghost, Coin, Wall
+from characters import Player, Enemy, Coin, Wall
 
 class PacmanGame(arcade.View):
     def __init__(self):
         super().__init__()
-
         self.wall_list = arcade.SpriteList()
         self.coin_list = arcade.SpriteList()
         self.ghost_list = arcade.SpriteList()
@@ -22,8 +22,8 @@ class PacmanGame(arcade.View):
         self.player = None
         self.game_over = False
         self.background_color = arcade.color.BLACK
-        self.start_x = 0
-        self.start_y = 0
+        self.start_x = 1.5*TILE_SIZE
+        self.start_y = 1.5*TILE_SIZE
 
     def setup(self):
         self.wall_list = arcade.SpriteList()
@@ -41,32 +41,22 @@ class PacmanGame(arcade.View):
                 y = (rows - row_idx - 1) * TILE_SIZE + TILE_SIZE / 2
 
                 if cell == "#":
-                    wall = Wall()
-                    wall.center_x = x
-                    wall.center_y = y
+                    wall = Wall(x,y)
                     self.wall_list.append(wall)
 
                 elif cell == ".":
-                    coin = Coin()
-                    coin.center_x = x
-                    coin.center_y = y
+                    coin = Coin(x,y)
                     self.coin_list.append(coin)
 
                 elif cell == "P":
-                    self.player = Pacman()
-                    self.player.center_x = x
-                    self.player.center_y = y
+                    self.player = Player(x,y,2,0,3)
                     self.player_list.append(self.player)
 
                 elif cell == "G":
-                    ghost = Ghost()
-                    ghost.center_x = x
-                    ghost.center_y = y
+                    ghost = Enemy(x,y,2)
                     self.ghost_list.append(ghost)
-        if self.player == None:
-            self.player = Pacman()
-            self.player.center_x = self.start_x
-            self.player.center_y = self.start_y
+        if self.player is None:
+            self.player = Player(self.start_x, self.start_y, 2, 0, 3)
             self.player_list.append(self.player)
 
 
@@ -78,9 +68,9 @@ class PacmanGame(arcade.View):
         self.coin_list.draw()
         self.player_list.draw()
 
-        arcade.draw_text("Score: 0",  10,  WINDOW_HEIGHT - 20,  arcade.color.WHITE,  14  )
+        arcade.draw_text(f"Score: {self.player.score}",  10,  WINDOW_HEIGHT - 20,  arcade.color.WHITE,  14  )
 
-        arcade.draw_text("Lives: 3", 10, WINDOW_HEIGHT - 40, arcade.color.WHITE,14 )
+        arcade.draw_text(f"Lives: {self.player.lives}", 10, WINDOW_HEIGHT - 40, arcade.color.WHITE,14 )
 
         if self.game_over:
             arcade.draw_text("GAME OVER", WINDOW_WIDTH / 2 - 80,  WINDOW_HEIGHT / 2, arcade.color.RED,24)
@@ -91,9 +81,8 @@ class PacmanGame(arcade.View):
             return
         old_x = self.player.center_x
         old_y = self.player.center_y
+        self.player.move()
 
-        self.player.center_x += self.player.change_x
-        self.player.center_y += self.player.change_y
 
         if arcade.check_for_collision_with_list(self.player, self.wall_list):
             self.player.center_x = old_x
@@ -121,36 +110,35 @@ class PacmanGame(arcade.View):
 
             self.player.center_x = self.start_x
             self.player.center_y = self.start_y
-            self.player.change_x = 0
-            self.player.change_y = 0
 
-            if self.player.lives5 <= 0:
+            if self.player.lives <= 0:
                 self.game_over = True
 
 
     def on_key_release(self,key,modifiers):
         if key == arcade.key.UP:
-            self.player.center_y = 0
+            self.player.change_y = 0
         elif key == arcade.key.DOWN:
-            self.player.center_y = 0
+            self.player.change_y = 0
         elif key == arcade.key.RIGHT:
-            self.player.center_x = 0
+            self.player.change_x = 0
         elif key == arcade.key.LEFT:
-            self.player.center_x = 0
+            self.player.change_x = 0
 
 
 
 
-    def on_key_press(self, key, modifers):
+    def on_key_press(self, key, modifiers):
         if self.game_over == True:
             if key == arcade.key.SPACE:
-                setup()
+                self.setup()
+            return
         if key == arcade.key.UP:
-            self.player.center_y = 1
+            self.player.change_y = 1
         elif key == arcade.key.DOWN:
-            self.player.center_y = -1
+            self.player.change_y = -1
         elif key == arcade.key.RIGHT:
-            self.player.center_x = 1
+            self.player.change_x = 1
         elif key == arcade.key.LEFT:
-            self.player.center_x = -1
+            self.player.change_x = -1
 
