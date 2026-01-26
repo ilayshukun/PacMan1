@@ -8,9 +8,9 @@ from turtledemo.clock import setup
 
 import arcade
 from typing_extensions import Final
-
+import random
 from constants import  WINDOW_WIDTH, WINDOW_HEIGHT, TILE_SIZE, LEVEL_MAP
-from characters import Player, Enemy, Coin, Wall, Teleport
+from characters import Player, Enemy, Apple,Banana, Wall, Teleport,Eggplant,Peach
 class PacmanGame(arcade.View):
     def __init__(self):
         super().__init__()
@@ -48,8 +48,10 @@ class PacmanGame(arcade.View):
                     self.wall_list.append(wall)
 
                 elif cell == ".":
-                    coin = Coin(x,y)
-                    self.coin_list.append(coin)
+                    # בוחרים סוג פרי אקראי
+                    fruit_class = random.choice([Apple, Eggplant, Banana, Peach])
+                    fruit = fruit_class(x, y)
+                    self.coin_list.append(fruit)
 
                 elif cell == "P":
                     self.player = Player(x,y,2,0,3)
@@ -114,7 +116,7 @@ class PacmanGame(arcade.View):
         coins_hit = arcade.check_for_collision_with_list(self.player, self.coin_list)
         for coin in coins_hit:
             coin.remove_from_sprite_lists()
-            self.player.score += 1
+            self.player.score += coin.value
 
         if len(self.coin_list) == 0:
             self.win = True
