@@ -10,6 +10,9 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="on_key_release" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -27,7 +30,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/ilayshukun/PacMan1.git&quot;,
-    &quot;accountId&quot;: &quot;f5b0e4ba-4032-4f16-bf9c-08926d4adb62&quot;
+    &quot;accountId&quot;: &quot;01b306fa-4935-4a67-95de-a6205e2deaac&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -42,11 +45,12 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.characters.executor": "Run",
+    "Python.constants.executor": "Run",
     "Python.game.executor": "Run",
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "on__key__release",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true"
   },
   "keyToStringList": {
@@ -121,11 +125,20 @@
       <option name="project" value="LOCAL‎" />
       <updated>1768673568565</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL‎-00007" summary="יצרתי פונקציה on_key_relase שמאפסת את שדה התנועה">
+      <option name="closed" value="true" />
+      <created>1768838883527</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL‎-00007" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1768838883527</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="to make pull" />
-    <option name="LAST_COMMIT_MESSAGE" value="to make pull" />
+    <MESSAGE value="יצרתי פונקציה on_key_relase שמאפסת את שדה התנועה" />
+    <option name="LAST_COMMIT_MESSAGE" value="יצרתי פונקציה on_key_relase שמאפסת את שדה התנועה" />
   </component>
 </project>

@@ -10,8 +10,7 @@ import arcade
 from typing_extensions import Final
 
 from constants import  WINDOW_WIDTH, WINDOW_HEIGHT, TILE_SIZE, LEVEL_MAP
-from characters import Player, Enemy, Coin, Wall
-
+from characters import Player, Enemy, Coin, Wall, Teleport
 class PacmanGame(arcade.View):
     def __init__(self):
         super().__init__()
@@ -24,6 +23,8 @@ class PacmanGame(arcade.View):
         self.background_color = arcade.color.BLACK
         self.start_x = 1.5*TILE_SIZE
         self.start_y = 1.5*TILE_SIZE
+        self.teleport_list = arcade.SpriteList()
+        self.teleport_cooldown = 0
 
     def setup(self):
         self.wall_list = arcade.SpriteList()
@@ -55,6 +56,9 @@ class PacmanGame(arcade.View):
                 elif cell == "G":
                     ghost = Enemy(x,y,2)
                     self.ghost_list.append(ghost)
+                elif cell == "T":
+                    teleport = Teleport(x, y)
+                    self.teleport_list.append(teleport)
         if self.player is None:
             self.player = Player(self.start_x, self.start_y, 2, 0, 3)
             self.player_list.append(self.player)
@@ -67,6 +71,7 @@ class PacmanGame(arcade.View):
         self.ghost_list.draw()
         self.coin_list.draw()
         self.player_list.draw()
+        self.teleport_list.draw()
 
         arcade.draw_text(f"Score: {self.player.score}",  10,  WINDOW_HEIGHT - 20,  arcade.color.WHITE,  14  )
 
@@ -114,6 +119,23 @@ class PacmanGame(arcade.View):
             if self.player.lives <= 0:
                 self.game_over = True
 
+        if self.teleport_cooldown > 0:
+            self.teleport_cooldown -= delta_time
+
+        if self.teleport_cooldown <= 0:
+            teleports_hit = arcade.check_for_collision_with_list(
+                self.player, self.teleport_list
+            )
+
+            if teleports_hit:
+                current = teleports_hit[0]
+
+                for teleport in self.teleport_list:
+                    if teleport is not current:
+                        self.player.center_x = teleport.center_x
+                        self.player.center_y = teleport.center_y
+                        self.teleport_cooldown = 0.5
+                        break
 
     def on_key_release(self,key,modifiers):
         if key == arcade.key.UP:

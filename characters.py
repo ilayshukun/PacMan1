@@ -75,3 +75,16 @@ class Wall(arcade.Sprite):
         )
         self.width = self.texture.width
         self.height = self.texture.height
+
+class Teleport(arcade.Sprite):
+    def __init__(self, center_x, center_y):
+        super().__init__()
+        self.center_x = center_x
+        self.center_y = center_y
+        self.texture = arcade.make_circle_texture(
+            TILE_SIZE // 2,
+            arcade.color.PURPLE
+        )
+        self.width = self.texture.width
+        self.height = self.texture.height
+
