@@ -21,6 +21,7 @@ class PacmanGame(arcade.View):
         self.player_list = arcade.SpriteList()
         self.player = None
         self.game_over = False
+        self.win = False
         self.background_color = arcade.color.BLACK
         self.start_x = 1.5*TILE_SIZE
         self.start_y = 1.5*TILE_SIZE
@@ -32,6 +33,7 @@ class PacmanGame(arcade.View):
         self.player_list = arcade.SpriteList()
 
         self.game_over = False
+        self.win = False
 
         rows = len(LEVEL_MAP)
 
@@ -74,10 +76,14 @@ class PacmanGame(arcade.View):
 
         if self.game_over:
             arcade.draw_text("GAME OVER", WINDOW_WIDTH / 2 - 80,  WINDOW_HEIGHT / 2, arcade.color.RED,24)
+        if self.win:
+            arcade.draw_text("YOU WIN!",WINDOW_WIDTH / 2 - 80,WINDOW_HEIGHT / 2,arcade.color.GREEN,24
+            )
+
 
     def on_update(self, delta_time):
 
-        if self.game_over:
+        if self.game_over or self.win:
             return
         old_x = self.player.center_x
         old_y = self.player.center_y
@@ -104,6 +110,10 @@ class PacmanGame(arcade.View):
         for coin in coins_hit:
             coin.remove_from_sprite_lists()
             self.player.score += 1
+
+        if len(self.coin_list) == 0:
+            self.win = True
+
         ghosts_hit = arcade.check_for_collision_with_list(self.player, self.ghost_list)
         if ghosts_hit:
             self.player.lives -= 1
@@ -129,7 +139,7 @@ class PacmanGame(arcade.View):
 
 
     def on_key_press(self, key, modifiers):
-        if self.game_over == True:
+        if self.game_over or self.win:
             if key == arcade.key.SPACE:
                 self.setup()
             return
