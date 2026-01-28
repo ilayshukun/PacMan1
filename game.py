@@ -46,17 +46,14 @@ class PacmanGame(arcade.View):
                 if cell == "#":
                     wall = Wall(x,y)
                     self.wall_list.append(wall)
-
                 elif cell == ".":
-                    # בוחרים סוג פרי אקראי
+
                     fruit_class = random.choice([Apple, Eggplant, Banana, Peach])
                     fruit = fruit_class(x, y)
                     self.coin_list.append(fruit)
-
                 elif cell == "P":
                     self.player = Player(x,y,2,0,3)
                     self.player_list.append(self.player)
-
                 elif cell == "G":
                     ghost = Enemy(x,y,2)
                     self.ghost_list.append(ghost)

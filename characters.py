@@ -5,7 +5,6 @@ from pyglet.resource import texture
 from constants import TILE_SIZE
 radius = TILE_SIZE // 2 - 2
 class Fruit(arcade.Sprite):
-    """מחלקת בסיס לכל פרי"""
     def __init__(self, center_x, center_y, color, value):
         super().__init__()
         self.center_x = center_x
@@ -106,7 +105,7 @@ class Teleport(arcade.Sprite):
         self.center_y = center_y
         self.texture = arcade.make_circle_texture(
             TILE_SIZE // 2,
-            arcade.color.PURPLE
+            arcade.color.GREEN
         )
         self.width = self.texture.width
         self.height = self.texture.height
