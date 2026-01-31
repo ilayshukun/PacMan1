@@ -4,35 +4,35 @@ from pyglet.resource import texture
 
 from constants import TILE_SIZE
 radius = TILE_SIZE // 2 - 2
+import arcade
+from constants import TILE_SIZE
+
 class Fruit(arcade.Sprite):
-    def __init__(self, center_x, center_y, color, value):
+    def __init__(self, center_x, center_y, image_path, value):
         super().__init__()
         self.center_x = center_x
         self.center_y = center_y
         self.value = value
-        self.texture = arcade.make_circle_texture(TILE_SIZE // 2 - 6, color=color)
-        self.width = self.texture.width
-        self.height = self.texture.height
-
+        self.texture = arcade.load_texture(image_path)
+        self.width = 26
+        self.height = 26
 
 class Apple(Fruit):
     def __init__(self, center_x, center_y):
-        super().__init__(center_x, center_y, arcade.color.RED, value=1)
-
-
-class Eggplant(Fruit):
-    def __init__(self, center_x, center_y):
-        super().__init__(center_x, center_y, arcade.color.PURPLE, value=2)
-
+        super().__init__(center_x, center_y, "assets/apple.png", value=1)
 
 class Banana(Fruit):
     def __init__(self, center_x, center_y):
-        super().__init__(center_x, center_y, arcade.color.YELLOW, value=3)
+        super().__init__(center_x, center_y, "assets/banana.png", value=2)
 
+class Eggplant(Fruit):
+    def __init__(self, center_x, center_y):
+        super().__init__(center_x, center_y, "assets/eggplant.png", value=3)
 
 class Peach(Fruit):
     def __init__(self, center_x, center_y):
-        super().__init__(center_x, center_y, arcade.color.ORANGE, value=4)
+        super().__init__(center_x, center_y, "assets/peach.png", value=4)
+
 
 class Character(arcade.Sprite):
     def __init__(self, center_x, center_y, speed):
@@ -48,10 +48,9 @@ class Player(Character):
         super().__init__(center_x, center_y, speed)
         self.score = score
         self.lives = lives
-        self.texture = arcade.make_circle_texture(TILE_SIZE // 2, arcade.color.YELLOW)
-        self.width = self.texture.width
-        self.height = self.texture.height
-
+        self.texture = arcade.load_texture("assets/player.png")
+        self.width = 25
+        self.height = 32
 
     def move(self):
         self.center_x += self.change_x * self.speed
@@ -61,9 +60,8 @@ class Enemy(Character):
     def __init__(self, center_x, center_y, speed):
         super().__init__(center_x, center_y, speed)
         self.direction_change_to_time = 0
-        self.texture = arcade.make_circle_texture(TILE_SIZE // 2, color=arcade.color.RED)
-        self.width = self.texture.width
-        self.height = self.texture.height
+        self.texture = arcade.load_texture("assets/enemy.png")
+
     def pick_new_direction(self):
         directions = [
             (1, 0),
@@ -103,10 +101,5 @@ class Teleport(arcade.Sprite):
         super().__init__()
         self.center_x = center_x
         self.center_y = center_y
-        self.texture = arcade.make_circle_texture(
-            TILE_SIZE // 2,
-            arcade.color.GREEN
-        )
-        self.width = self.texture.width
-        self.height = self.texture.height
+        self.texture = arcade.load_texture("assets/teleport.png")
 

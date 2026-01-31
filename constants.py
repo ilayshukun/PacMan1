@@ -8,12 +8,12 @@
 """
 
 # הגדרות חלון
-WINDOW_WIDTH = 2000
-WINDOW_HEIGHT = 1000
+WINDOW_WIDTH = 800
+WINDOW_HEIGHT = 600
 WINDOW_TITLE = "Pacman Arcade Example"
 
 # גודל אריח במפה (בפיקסלים)
-TILE_SIZE = 60
+TILE_SIZE = 32
 
 # מפה:
 # # - קיר

@@ -17,7 +17,6 @@ def main():
         WINDOW_WIDTH,
         WINDOW_HEIGHT,
         WINDOW_TITLE,
-        fullscreen=True
     )
 
     game = PacmanGame()
