@@ -156,9 +156,6 @@ class PacmanGame(arcade.View):
         elif key == arcade.key.LEFT:
             self.player.change_x = 0
 
-
-
-
     def on_key_press(self, key, modifiers):
         if self.game_over or self.win:
             if key == arcade.key.SPACE:

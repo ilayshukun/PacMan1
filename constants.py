@@ -14,7 +14,6 @@ WINDOW_TITLE = "Pacman Arcade Example"
 
 # גודל אריח במפה (בפיקסלים)
 TILE_SIZE = 32
-
 # מפה:
 # # - קיר
 # . - מטבע

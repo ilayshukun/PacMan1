@@ -18,7 +18,6 @@ def main():
         WINDOW_HEIGHT,
         WINDOW_TITLE,
     )
-
     game = PacmanGame()
     game.setup()
     window.show_view(game)

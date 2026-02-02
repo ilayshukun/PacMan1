@@ -82,7 +82,6 @@ class Enemy(Character):
         self.center_x += self.change_x * self.speed
         self.center_y += self.change_y * self.speed
 
-
 class Wall(arcade.Sprite):
     def __init__(self, center_x, center_y):
         super().__init__()
